@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>anasayfa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            height: 100vh;
+            background: #f4f7f9;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #2f3542;
+            color: #fff;
+            padding: 30px 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 30px;
+            font-size: 22px;
+        }
+
+        .sidebar a {
+            color: #dcdde1;
+            text-decoration: none;
+            display: block;
+            margin: 15px 0;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #1abc9c;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            background: #fff;
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2f3542;
+        }
+
+        .cards {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            color: #2f3542;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 24px;
+            color: #1abc9c;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="sidebar">
+        <h2>Stok Takip</h2>
+        <a href="#">Dashboard</a>
+        <a href="#">Ürünler</a>
+        <a href="#">Kategoriler</a>
+        <a href="#">Raporlar</a>
+        <a href="#">Ayarlar</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header">Dashboard</div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Toplam Ürün</h3>
+                <p>150</p>
+            </div>
+            <div class="card">
+                <h3>Stokta Kalan</h3>
+                <p>78</p>
+            </div>
+            <div class="card">
+                <h3>Kritik Seviye</h3>
+                <p>12</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Yönetimi - StokTakip</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --dark-color: #2b2d42;
+            --light-color: #f8f9fa;
+            --danger-color: #ef233c;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --gray-color: #adb5bd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--dark-color);
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content */
+        .main {
+            padding: 7rem 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-title i {
+            color: var(--primary-color);
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-color);
+        }
+
+        .filter-dropdown {
+            position: relative;
+        }
+
+        .filter-btn {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn i {
+            transition: transform 0.3s;
+        }
+
+        .filter-btn.active i {
+            transform: rotate(180deg);
+        }
+
+        .filter-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 1rem;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .filter-menu.active {
+            display: block;
+        }
+
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+
+        .filter-group h5 {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        /* Products Table */
+        .products-table {
+            width: 100%;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        th {
+            font-weight: 600;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .product-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-color);
+        }
+
+        .product-name {
+            font-weight: 500;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+
+        .stock-status {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .in-stock {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--success-color);
+        }
+
+        .low-stock {
+            background-color: rgba(248, 150, 30, 0.1);
+            color: var(--warning-color);
+        }
+
+        .out-of-stock {
+            background-color: rgba(239, 35, 60, 0.1);
+            color: var(--danger-color);
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--gray-color);
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .edit-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .delete-btn:hover {
+            color: var(--danger-color);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .page-btn {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            background-color: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .page-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Add Product Button */
+        .add-product-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .add-product-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .auth-buttons {
+                display: none;
+            }
+
+            .main {
+                padding: 6rem 1rem 1rem;
+            }
+
+            .products-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-filter {
+                width: 100%;
+            }
+
+            .search-box {
+                flex-grow: 1;
+            }
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            color: var(--light-color);
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .contact-info p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-color);
+        }
+
+        .contact-info i {
+            color: var(--accent-color);
+            width: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-boxes"></i> StokTakip
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Anasayfa</a></li>
+                <li><a href="/templates/dashborad.html" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="/templates/urun.html" class="nav-link active"><i class="fas fa-box-open"></i> Ürünler</a></li>
+                <li><a href="/templates/hakkimizda.html" class="nav-link"><i class="fas fa-file-invoice"></i> Hakkimizda</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="{{ url_for('register') }}" class="btn btn-primary" id="registerBtn"><i class="fas fa-user-plus"></i> Kayıt Ol</a>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fas fa-box-open"></i> Ürün Yönetimi</h1>
+            <div class="search-filter">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Ürün ara...">
+                </div>
+                <div class="filter-dropdown">
+                    <button class="filter-btn">
+                        <i class="fas fa-filter"></i> Filtrele
+                    </button>
+                    <div class="filter-menu">
+                        <div class="filter-group">
+                            <h5>Kategoriler</h5>
+                            <div class="filter-options">
+                                <label><input type="checkbox" checked> Tümü</label>
+                                <label><input type="checkbox"> Elektronik</label>
+                                <label><input type="checkbox"> Giyim</label>
+                                <label><input type="checkbox"> Gıda</label>
+                                <label><input type="checkbox"> Ofis Malzemeleri</label>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <h5>Stok Durumu</h5>
+                            <div class="filter-options">
+                                <label><input type="checkbox" checked> Tümü</label>
+                                <label><input type="checkbox"> Stokta Var</label>
+                                <label><input type="checkbox"> Az Stok</label>
+                                <label><input type="checkbox"> Stokta Yok</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;">Uygula</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ürün</th>
+                        <th>Kategori</th>
+                        <th>Barkod</th>
+                        <th>Fiyat</th>
+                        <th>Stok</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <div class="product-img">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <div>
+                                    <div class="product-name">Dizüstü Bilgisayar</div>
+                                    <div class="product-category">#PRD-001</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Elektronik</td>
+                        <td>123456789</td>
+                        <td>12.499₺</td>
+                        <td>15</td>
+                        <td><span class="stock-status in-stock">Stokta Var</span></td>
+                        <td>
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <div class="product-img">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div>
+                                    <div class="product-name">Akıllı Telefon</div>
+                                    <div class="product-category">#PRD-002</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Elektronik</td>
+                        <td>987654321</td>
+                        <td>8.999₺</td>
+                        <td>5</td>
+                        <td><span class="stock-status low-stock">Az Stok</span></td>
+                        <td>
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <div class="product-img">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                                <div>
+                                    <div class="product-name">Tişört</div>
+                                    <div class="product-category">#PRD-003</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Giyim</td>
+                        <td>456123789</td>
+                        <td>149₺</td>
+                        <td>32</td>
+                        <td><span class="stock-status in-stock">Stokta Var</span></td>
+                        <td>
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <div class="product-img">
+                                    <i class="fas fa-headphones"></i>
+                                </div>
+                                <div>
+                                    <div class="product-name">Kulaklık</div>
+                                    <div class="product-category">#PRD-004</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Elektronik</td>
+                        <td>789123456</td>
+                        <td>599₺</td>
+                        <td>0</td>
+                        <td><span class="stock-status out-of-stock">Stokta Yok</span></td>
+                        <td>
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <div class="product-img">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div>
+                                    <div class="product-name">Not Defteri</div>
+                                    <div class="product-category">#PRD-005</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Ofis Malzemeleri</td>
+                        <td>321654987</td>
+                        <td>29₺</td>
+                        <td>78</td>
+                        <td><span class="stock-status in-stock">Stokta Var</span></td>
+                        <td>
+                            <button class="action-btn edit-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </main>
+
+    <!-- Add Product Button -->
+    <button class="add-product-btn" id="addProductBtn">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-row">
+                <div class="footer-col">
+                    <h4>StokTakip</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Hakkımızda</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Hizmetlerimiz</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Gizlilik Politikası</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Kullanım Koşulları</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Ürünler</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Stok Yönetimi</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Raporlama</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Entegrasyonlar</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Yardım</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> SSS</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Dokümantasyon</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Video Eğitimler</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Bize Ulaşın</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> İstanbul, Türkiye</p>
+                        <p><i class="fas fa-phone"></i> +90 555 123 45 67</p>
+                        <p><i class="fas fa-envelope"></i> info@stoktakip.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 StokTakip. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Filter dropdown toggle
+        const filterBtn = document.querySelector('.filter-btn');
+        const filterMenu = document.querySelector('.filter-menu');
+
+        filterBtn.addEventListener('click', () => {
+            filterBtn.classList.toggle('active');
+            filterMenu.classList.toggle('active');
+        });
+
+        // Close filter menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!filterBtn.contains(e.target) && !filterMenu.contains(e.target)) {
+                filterBtn.classList.remove('active');
+                filterMenu.classList.remove('active');
+            }
+        });
+
+        // Add product button functionality
+        const addProductBtn = document.getElementById('addProductBtn');
+        
+        addProductBtn.addEventListener('click', () => {
+            alert('Yeni ürün ekleme formu burada açılacak');
+            // Burada modal açma kodu eklenebilir
+        });
+
+        // Login and register modals (ana sayfadan kopyalandı)
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+
+        if (loginBtn && registerBtn) {
+            loginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.style.display = 'block';
+            });
+
+            registerBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerModal.style.display = 'block';
+            });
+
+            closeModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    loginModal.style.display = 'none';
+                    registerModal.style.display = 'none';
+                });
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+                if (e.target === registerModal) {
+                    registerModal.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

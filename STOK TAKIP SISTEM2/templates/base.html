@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stok Takip Sistemi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    /* Genel stil ayarları */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header kısmı */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+header .logo h1 {
+    margin: 0;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Hoşgeldin Sayfası */
+.welcome {
+    background-color: #fff;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.welcome h2 {
+    color: #333;
+}
+
+.welcome p {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.welcome .btn {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.welcome .btn:hover {
+    background-color: #555;
+}
+
+/* Ana Sayfa Dashboard */
+.dashboard {
+    padding: 30px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard h2 {
+    color: #333;
+}
+
+.dashboard p {
+    color: #777;
+}
+
+</style>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Stok Takip Sistemi</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Ürünler</a></li>
+                <li><a href="#">Kategori</a></li>
+                <li><a href="#">Giriş</a></li>
+                <li><a href="#">Çıkış</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hoşgeldin Sayfası -->
+    <section class="welcome">
+        <h2>Hoşgeldiniz!</h2>
+        <p>Stok Takip Sistemi'ne giriş yaptınız. Ana sayfada ürünleri takip edebilir, kategorileri yönetebilir ve stok durumu hakkında bilgi alabilirsiniz.</p>
+        <button class="btn">Ana Sayfaya Git</button>
+    </section>
+
+    <!-- Ana Sayfa İçeriği -->
+    <section class="dashboard">
+        <h2>Dashboard</h2>
+        <p>Burada stok durumu ve diğer sistem bilgilerini görüntüleyebilirsiniz.</p>
+    </section>
+</body>
+</html>
