@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "mascud",
+        "email": "mascud@gmail.com",
+        "password": "pbkdf2:sha256:600000$Ypp4mSxMFF11u7Ec$fcceeb56a1cf47ba885001e0b6e60137da08a4c79a030cc6820abb368f70d1ab"
+    },
+    {
+        "id": 2,
+        "name": "najah",
+        "email": "najah@gmail.com",
+        "password": "pbkdf2:sha256:600000$3ypby3DJbcCF30cl$38dd0a5d1c90cec22b502777893e65c80cbd556328268c409812df34a661de3c"
+    },
+    {
+        "id": 3,
+        "name": "asiya",
+        "email": "asiya@gmail.com",
+        "password": "pbkdf2:sha256:600000$LHP4RJ8qAmnXrt1J$91501fb05fb263148ed85906f128c772d1c90270b33b4531e0a5fb7ae9ee2e6b"
+    },
+    {
+        "id": 4,
+        "name": "iqra12@gmail.com",
+        "email": "iqra12@gmail.com",
+        "password": "pbkdf2:sha256:600000$AL7DRfuUkKBZ2Tnr$3a11b5b3a400969667e5041f31aedc96972b3b429028cbe8964ef3319659f1a2"
+    },
+    {
+        "id": 5,
+        "name": "mesut88@gmail.com",
+        "email": "mesut88@gmail.com",
+        "password": "pbkdf2:sha256:600000$nscqrlRgXt2sGvvU$e6322c833c60da6371f92fc9358941d1826f067ff71bed4f140984942aa2178f"
+    },
+    {
+        "id": 6,
+        "name": "safiya",
+        "email": "safiya@gmail.com",
+        "password": "pbkdf2:sha256:600000$Yb8x876E16Y08WaA$e748e817d37b8d3f07e56497b764007d0625a87db71e3e5c6cba090181992d29"
+    },
+    {
+        "id": 7,
+        "name": "ruweyda",
+        "email": "ruweyda@gmail.com",
+        "password": "pbkdf2:sha256:600000$CAfnFGtYOvomtcbn$2ef7f64819a63c5728433d804346bad17584b61247dc6327e7970b0c6da67fb1"
+    }
+]

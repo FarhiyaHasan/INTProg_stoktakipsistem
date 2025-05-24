@@ -1,0 +1,110 @@
+[
+    {
+        "id": 1,
+        "ad": "fare",
+        "kategori": "elektronik",
+        "fiyat": 100.0,
+        "stok": 5,
+        "kullanici_id": 5,
+        "kullanici_adi": "mesut88@gmail.com"
+    },
+    {
+        "id": 3,
+        "ad": "muz ve limon",
+        "kategori": "ev-yasam",
+        "fiyat": 95.99,
+        "stok": 50,
+        "kullanici_id": 5,
+        "kullanici_adi": "mesut88@gmail.com"
+    },
+    {
+        "id": 4,
+        "ad": "t-short",
+        "kategori": "giyim",
+        "fiyat": 291.0,
+        "stok": 133,
+        "kullanici_id": 5,
+        "kullanici_adi": "mesut88@gmail.com"
+    },
+    {
+        "id": 5,
+        "ad": "flash bellek",
+        "kategori": "elektronik",
+        "fiyat": 250.9,
+        "stok": 100,
+        "kullanici_id": 5,
+        "kullanici_adi": "mesut88@gmail.com"
+    },
+    {
+        "id": 6,
+        "ad": "fare",
+        "kategori": "elektronik",
+        "fiyat": 200.0,
+        "stok": 90,
+        "kullanici_id": 5,
+        "kullanici_adi": "mesut88@gmail.com"
+    },
+    {
+        "id": 7,
+        "ad": "fare",
+        "kategori": "elektronik",
+        "fiyat": 200.0,
+        "stok": 90,
+        "kullanici_id": 6,
+        "kullanici_adi": "safiya"
+    },
+    {
+        "id": 8,
+        "ad": "muz ve limon",
+        "kategori": "ev-yasam",
+        "fiyat": 45.0,
+        "stok": 90,
+        "kullanici_id": 6,
+        "kullanici_adi": "safiya"
+    },
+    {
+        "id": 9,
+        "ad": "t-short",
+        "kategori": "giyim",
+        "fiyat": 390.0,
+        "stok": 75,
+        "kullanici_id": 6,
+        "kullanici_adi": "safiya"
+    },
+    {
+        "id": 10,
+        "ad": "t-short",
+        "kategori": "giyim",
+        "fiyat": 450.0,
+        "stok": 90,
+        "kullanici_id": 2,
+        "kullanici_adi": "najah"
+    },
+    {
+        "id": 11,
+        "ad": "muz ve limon",
+        "kategori": "ev-yasam",
+        "fiyat": 12.22,
+        "stok": 5,
+        "kullanici_id": 6,
+        "kullanici_adi": "safiya"
+    },
+    {
+        "id": 12,
+        "ad": "t-short",
+        "kategori": "giyim",
+        "fiyat": 345.0,
+        "stok": 100,
+        "kullanici_id": 7,
+        "kullanici_adi": "ruweyda"
+    },
+    {
+        "id": 13,
+        "ad": "flash bellek",
+        "kategori": "elektronik",
+        "fiyat": 1206.9,
+        "stok": 12,
+        "kullanici_id": 7,
+        "kullanici_adi": "ruweyda"
+    }
+]
